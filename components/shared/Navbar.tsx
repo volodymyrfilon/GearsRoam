@@ -4,9 +4,7 @@ import { navLinks } from '@/constants'
 import Link from 'next/link'
 import Button from '../ui/Button'
 import Route from '../ui/Route'
-// import Button from '../ui/Button'
-// import { useEffect, useState } from 'react'
-// import clsx from 'clsx'
+import MobileMenu from './MobileMenu'
 
 const Navbar = () => {
 	return (
@@ -32,6 +30,10 @@ const Navbar = () => {
 				<div className='flex gap-5 flex-1 justify-end max-md:hidden'>
 					<Button text='Log In' onClick={() => null} aria='Log in button' />
 					<Button text='Sign up' onClick={() => null} aria='Sign up button' />
+				</div>
+
+				<div>
+					<MobileMenu />
 				</div>
 			</div>
 		</nav>
