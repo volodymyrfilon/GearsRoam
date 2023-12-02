@@ -57,7 +57,6 @@ const page = ({ searchParams }: { searchParams: searchParamsTypes }) => {
 						{post.paragraph}
 						{post.paragraph}
 						{post.paragraph}
-						{post.paragraph}
 					</p>
 
 					<div className='flex mt-5 gap-5 items-center'>
