@@ -4,8 +4,8 @@ import Link from 'next/link'
 interface routeProps {
 	route: string
 	label: string
-	isActive: boolean
-	onClick: () => void
+	isActive?: boolean
+	onClick?: () => void
 }
 
 const Route = ({ route, label, isActive, onClick }: routeProps) => {
