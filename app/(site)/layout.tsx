@@ -1,3 +1,4 @@
+import Footer from '@/components/shared/Footer'
 import Navbar from '@/components/shared/Navbar'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
@@ -24,7 +25,7 @@ export default function RootLayout({
 			<body className={`${roboto.className} overflow-x-hidden bg-light`}>
 				<Navbar />
 				{children}
-				{/* <Footer /> */}
+				<Footer />
 			</body>
 		</html>
 	)
