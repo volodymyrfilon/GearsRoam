@@ -1,4 +1,5 @@
 import { blogData } from '@/constants/blogData'
+import Link from 'next/link'
 import Overlay from '../ui/Overlay'
 import Tag from '../ui/Tag'
 
@@ -26,21 +27,13 @@ const Hero = () => {
 							<span>{post.authorName}</span>
 							<span className='italic'>{post.publishDate}</span>
 						</div>
-						<div className='relative max-h-[600px] overflow-hidden shadow-xl'>
-							<img
-								src={post.image_path}
-								alt={`image for${post.title}`}
-								className='object-cover w-full h-full'
-							/>
-							<Overlay />
-						</div>
-					</article>
-				))}
-
-				<div className='grid grid-cols-3 gap-8 max-lg:grid-cols-1'>
-					{bottomFeatured.map((post, id) => (
-						<article className='flex flex-col gap-3 items-center text-center relative'>
-							<div className='relative overflow-hidden h-72 shadow-xl w-full'>
+						<Link
+							href={{
+								pathname: `blog/${post.id}`,
+								query: { ...post },
+							}}
+						>
+							<div className='relative max-h-[600px] overflow-hidden shadow-xl'>
 								<img
 									src={post.image_path}
 									alt={`image for${post.title}`}
@@ -48,7 +41,29 @@ const Hero = () => {
 								/>
 								<Overlay />
 							</div>
+						</Link>
+					</article>
+				))}
 
+				<div className='grid grid-cols-3 gap-8 max-lg:grid-cols-1'>
+					{bottomFeatured.map((post, id) => (
+						<article className='flex flex-col gap-3 items-center text-center relative'>
+							<Link
+								className='w-full'
+								href={{
+									pathname: `blog/${post.id}`,
+									query: { ...post },
+								}}
+							>
+								<div className='relative overflow-hidden h-72 shadow-xl w-full'>
+									<img
+										src={post.image_path}
+										alt={`image for${post.title}`}
+										className='object-cover w-full h-full'
+									/>
+									<Overlay />
+								</div>
+							</Link>
 							<Tag text={post.tags} />
 							<h3 className='text-sm font-extrabold uppercase text-tertiary px-5'>
 								{post.title}
