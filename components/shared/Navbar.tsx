@@ -44,8 +44,8 @@ const Navbar = () => {
 				<div className='flex-1'>
 					<Link href={'/'}>
 						<h1 className='text-3xl font-extrabold text-secondary'>
-							Explore
-							<span className='text-primary'>X</span>
+							Safari
+							<span className='text-primary'>Travel</span>
 						</h1>
 					</Link>
 				</div>
