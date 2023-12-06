@@ -1,9 +1,9 @@
 import Footer from '@/components/shared/Footer'
 import Navbar from '@/components/shared/Navbar'
+import { AuthContext } from '@/context/AuthContext'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import './globals.css'
-// import Footer from "@/components/shared/Footer";
 
 const roboto = Roboto({
 	subsets: ['latin'],
@@ -11,8 +11,8 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-	title: 'ExploreX',
-	description: 'Travel Blog',
+	title: 'SafariTrave',
+	description: 'Explore Safari with us',
 }
 
 export default function RootLayout({
@@ -22,11 +22,13 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='en'>
-			<body className={`${roboto.className} overflow-x-hidden bg-light`}>
-				<Navbar />
-				{children}
-				<Footer />
-			</body>
+			<AuthContext>
+				<body className={`${roboto.className} overflow-x-hidden bg-light`}>
+					<Navbar />
+					{children}
+					<Footer />
+				</body>
+			</AuthContext>
 		</html>
 	)
 }
