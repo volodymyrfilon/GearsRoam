@@ -11,7 +11,7 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-	title: 'SafariTrave',
+	title: 'Safari Travel',
 	description: 'Explore Safari with us',
 }
 
