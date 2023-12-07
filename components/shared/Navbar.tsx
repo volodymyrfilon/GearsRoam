@@ -2,15 +2,25 @@
 
 import { navLinks } from '@/constants'
 import useMenuActive from '@/hooks/useMenuActive'
+import { User } from '@prisma/client'
 import clsx from 'clsx'
+import { signOut } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { FC, useEffect, useState } from 'react'
 import Button from '../ui/Button'
 import Route from '../ui/Route'
 import MobileMenu from './MobileMenu'
 
-const Navbar = () => {
+interface NavbarProps {
+	user: User
+}
+
+const Navbar: FC<NavbarProps> = ({ user }) => {
 	const [isScrolling, setIsScrolling] = useState(false)
+	const [openUserMenu, setOpenUserMenu] = useState(false)
+	const router = useRouter()
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -66,10 +76,48 @@ const Navbar = () => {
 					})}
 				</ul>
 
-				<div className='flex gap-5 flex-1 justify-end max-md:hidden'>
-					<Button text='Log In' onClick={() => null} aria='Log in button' />
-					<Button text='Sign up' onClick={() => null} aria='Sign up button' />
-				</div>
+				{!user && (
+					<div className='flex gap-5 flex-1 justify-end max-md:hidden'>
+						<Button
+							text='Log In'
+							onClick={() => router.push('/access')}
+							aria='Log in button'
+						/>
+						<Button
+							text='Sign up'
+							onClick={() => router.push('/access')}
+							aria='Sign up button'
+						/>
+					</div>
+				)}
+
+				{user && (
+					<div className='flex gap-5 flex-1 items-center justify-end max-md:hidden'>
+						<h1>{user.name}</h1>
+						<Image
+							src={user.image as string}
+							width={50}
+							height={50}
+							className='rounded-full border-4 border-primary cursor-pointer'
+							alt={`Image of ${user.name}`}
+							onClick={() => setOpenUserMenu(!openUserMenu)}
+						/>
+					</div>
+				)}
+
+				{openUserMenu && (
+					<ul className='z-10 absolute right-12 top-[70px] w-48 bg-white shadow-md rounded-md p-4'>
+						<Link href='/create' onClick={() => setOpenUserMenu(false)}>
+							<li>Create a post</li>
+						</Link>
+						<Link href='/userposts' onClick={() => setOpenUserMenu(false)}>
+							<li>My posts</li>
+						</Link>
+						<li className='cursor-pointer' onClick={() => signOut()}>
+							Sign out
+						</li>
+					</ul>
+				)}
 
 				<div>
 					<MobileMenu />
