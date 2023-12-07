@@ -1,6 +1,7 @@
 import Footer from '@/components/shared/Footer'
 import Navbar from '@/components/shared/Navbar'
 import { AuthContext } from '@/context/AuthContext'
+import { EdgeStoreProvider } from '@/lib/edgestore'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import getCurrentUser from './actions/getCurrentUser'
@@ -25,11 +26,13 @@ export default async function RootLayout({
 	return (
 		<html lang='en'>
 			<AuthContext>
-				<body className={`${roboto.className} overflow-x-hidden bg-light`}>
-					<Navbar user={user} />
-					{children}
-					<Footer />
-				</body>
+				<EdgeStoreProvider>
+					<body className={`${roboto.className} overflow-x-hidden bg-light`}>
+						<Navbar user={user} />
+						{children}
+						<Footer />
+					</body>
+				</EdgeStoreProvider>
 			</AuthContext>
 		</html>
 	)
