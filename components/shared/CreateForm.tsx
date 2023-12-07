@@ -2,6 +2,7 @@
 
 import { useEdgeStore } from '@/lib/edgestore'
 import { useEffect, useState } from 'react'
+import { SingleImageDropzone } from '../ui/SingleImageDropZone'
 
 const CreateForm = ({ user }) => {
 	const [file, setFile] = useState<File>()
@@ -33,7 +34,11 @@ const CreateForm = ({ user }) => {
 					<h2 className='text-center text-xl font-extrabold uppercase'>
 						Please Sign up or Log in to create a post!
 					</h2>
-				) : null}
+				) : (
+					<>
+						<SingleImageDropzone />
+					</>
+				)}
 			</div>
 		</div>
 	)
