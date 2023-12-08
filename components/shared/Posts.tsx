@@ -1,14 +1,39 @@
 'use client'
 
 import { postTypes } from '@/types/postTypes'
+import clsx from 'clsx'
 import { FC, useState } from 'react'
 import Button from '../ui/Button'
 import BlogCard from './BlogCard'
 
 const Posts: FC<{ posts: postTypes[] }> = ({ posts }) => {
 	const [visibleBlogs, setVisibleBlogs] = useState(5)
+	const [selectedCategory, setSelectedCategory] = useState('all')
 	const showMoreBlogs = () => {
 		setVisibleBlogs(prevVisibleBlogs => prevVisibleBlogs + 3)
+	}
+
+	const filterPostsByCategory = () => {
+		if (selectedCategory === 'all') {
+			return posts.slice(0, visibleBlogs)
+		} else {
+			return posts
+				.filter(post => post.category === selectedCategory)
+				.slice(0, visibleBlogs)
+		}
+	}
+
+	const categories = [
+		'Adventure',
+		'Wanderlust',
+		'Culture',
+		'Discovery',
+		'Journey',
+	]
+
+	const hendleCategoryChange = (category: string) => {
+		setSelectedCategory(category)
+		setVisibleBlogs(5)
 	}
 
 	return (
@@ -22,10 +47,29 @@ const Posts: FC<{ posts: postTypes[] }> = ({ posts }) => {
 				</h2>
 			</div>
 
-			<div className='flex flex-col gap-10 h-full'>
-				{posts.slice(0, visibleBlogs).map((post, id) => (
-					<BlogCard post={post} key={id} />
+			<div className='flex justify-center space-x-4 flex-wrap'>
+				{categories.map(category => (
+					<button
+						key={category}
+						onClick={() => hendleCategoryChange(category)}
+						className={clsx(
+							'px-4 py-2, rounded hover:bg-tertiary/50 mb-10',
+							selectedCategory === category
+								? 'bg-tertiary/60 text-white'
+								: 'bg-tertiary text-white'
+						)}
+					>
+						{category === 'all' ? 'All' : category}
+					</button>
 				))}
+			</div>
+
+			<div className='flex flex-col gap-10 h-full'>
+				{filterPostsByCategory()
+					.slice(0, visibleBlogs)
+					.map((post, id) => (
+						<BlogCard post={post} key={id} />
+					))}
 				{visibleBlogs < posts.length && (
 					<div className='flex justify-center'>
 						<Button
