@@ -19,8 +19,8 @@ const Footer = () => {
 					<div className='flex-1'>
 						<Link href={'/'}>
 							<h1 className='text-3xl font-extrabold text-light'>
-								Safari
-								<span className='text-primary'>Travel</span>
+								Gears
+								<span className='text-primary'>Roam</span>
 							</h1>
 						</Link>
 					</div>
@@ -49,7 +49,7 @@ const Footer = () => {
 				</div>
 
 				<div className='w-full text-center mt-3 text-sm text-white'>
-					<span>All Rights Reserved SafariTravel.com &copy; 2023</span>
+					<span>All Rights Reserved GearsRoam.com &copy; 2023</span>
 				</div>
 			</div>
 		</div>

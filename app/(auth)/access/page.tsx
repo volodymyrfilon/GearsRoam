@@ -46,8 +46,8 @@ const page = () => {
 				<div className='mt-6 flex gap-2 flex-col justify-center items-center mx-auto'>
 					<Link href={'/'} className='mb-5'>
 						<h1 className='text-3xl font-extrabold text-secondary'>
-							Safari
-							<span className='text-primary'>Travel</span>
+							Gears
+							<span className='text-primary'>Roam</span>
 						</h1>
 					</Link>
 					<span className='text-sm'>

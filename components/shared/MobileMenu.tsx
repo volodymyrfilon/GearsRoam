@@ -36,8 +36,8 @@ const MobileMenu = () => {
 						<div className='border-b py-5'>
 							<Link href={'/'}>
 								<h1 className='text-3xl font-extrabold text-secondary'>
-									Safari
-									<span className='text-primary'>Travel</span>
+									Gears
+									<span className='text-primary'>Roam</span>
 								</h1>
 							</Link>
 							<div className='flex gap-5 text-secondary flex-1 justify-center text-xl mt-5'>

@@ -23,13 +23,7 @@ const Posts: FC<{ posts: postTypes[] }> = ({ posts }) => {
 		}
 	}
 
-	const categories = [
-		'Adventure',
-		'Wanderlust',
-		'Culture',
-		'Discovery',
-		'Journey',
-	]
+	const categories = ['Reviews', 'News', 'Insights', 'Driving', 'Classics']
 
 	const hendleCategoryChange = (category: string) => {
 		setSelectedCategory(category)

@@ -71,11 +71,11 @@ const CreateForm = ({ user }: { user: userTypes }) => {
 								<option value='' disabled selected>
 									Not selected
 								</option>
-								<option value='Adventure'>Adventure</option>
-								<option value='Culture'>Culture</option>
-								<option value='Journey'>Journey</option>
-								<option value='Discovery'>Discovery</option>
-								<option value='Wanderlust'>Wanderlust</option>
+								<option value='Reviews'>Reviews</option>
+								<option value='News'>News</option>
+								<option value='Insights'>Insights</option>
+								<option value='Driving'>Driving</option>
+								<option value='Classics'>Classics</option>
 							</select>
 
 							<Input name='email' type='hidden' value={user?.email || ''} />

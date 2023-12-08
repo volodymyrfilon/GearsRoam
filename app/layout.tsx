@@ -13,8 +13,9 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-	title: 'Safari Travel',
-	description: 'Explore Safari with us',
+	title: 'Gears Roam',
+	description:
+		'Explore the world of automobiles with Gears Roam, where passion meets horsepower. Discover in-depth car reviews, latest automotive news, DIY maintenance tips, and everything you need to fuel your love for cars. Buckle up for a thrilling journey through the fast lane of automotive culture and innovation.',
 }
 
 export default async function RootLayout({

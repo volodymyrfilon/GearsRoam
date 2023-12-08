@@ -19,13 +19,13 @@ const page = () => {
 
 			<div className='leading-8 text-lg bg-white mt-[-80px] relative w-[90%] m-auto rounded-lg p-5 shadow-xl text-center max-md:mt-0 max-md:w-full max-md:bg-transparent max-md:shadow-none'>
 				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut minima
-					voluptas est soluta dolores? Facere asperiores sequi suscipit veniam
-					quibusdam non aperiam eos, illum commodi repellat, quasi, libero
-					adipisci beatae! Lorem ipsum dolor sit amet consectetur adipisicing
-					elit. Consequatur, beatae animi nostrum iusto fugit, recusandae
-					suscipit repellendus ex distinctio facilis alias ut veritatis ducimus
-					culpa, dicta possimus tempora voluptates illum.
+					What makes Gears Roam unique is our commitment to delivering content
+					that goes beyond the surface. We're not just interested in the latest
+					models and trends (although we cover those too); we're passionate
+					about the stories behind the wheels, the innovations under the hoods,
+					and the people driving the industry forward. Our articles are crafted
+					with care, aiming to inform, inspire, and ignite the same passion for
+					cars that fuels our team.
 				</p>
 				<div className='w-full items-center flex justify-center'>
 					<Image
