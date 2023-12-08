@@ -1,11 +1,13 @@
-import { blogData } from '@/constants/blogData'
+import { postTypes } from '@/types/postTypes'
+import { formatDate } from '@/utils/formatDate'
 import Image from 'next/image'
 import Link from 'next/link'
+import { FC } from 'react'
 import Overlay from '../ui/Overlay'
 import Tag from '../ui/Tag'
 
-const TopPost = () => {
-	const topPost = blogData.filter(blog => blog.topPost === true)
+const TopPost: FC<{ posts: postTypes[] }> = ({ posts }) => {
+	const topPost = posts.filter(post => post.topPost === true)
 	return (
 		<section aria-aria-labelledby='top-post'>
 			<div className='w-full text-center'>
@@ -19,16 +21,11 @@ const TopPost = () => {
 
 			<div className='flex h-full flex-col gap-12 items-center'>
 				{topPost.map((post, id) => (
-					<Link
-						href={{
-							pathname: `blog/${post.id}`,
-							query: { ...post },
-						}}
-					>
+					<Link href={`/blog/${post.id}`}>
 						<article key={id}>
 							<div className='relative cursor-pointer'>
 								<Image
-									src={post.image_path}
+									src={post.img}
 									alt={`image for${post.title}`}
 									width={800}
 									height={800}
@@ -36,14 +33,16 @@ const TopPost = () => {
 								<Overlay />
 							</div>
 							<div className='w-full flex justify-center'>
-								<Tag text={post.tags} />
+								<Tag text={post.category} />
 							</div>
 							<h3 className='font-extrabold uppercase text-tertiary text-center'>
 								{post.title}
 							</h3>
 							<div className='flex gap-3 justify-center mt-2'>
-								<span className='font-light'>By: {post.authorName}</span>
-								<span className='italic font-light'>{post.publishDate}</span>
+								<span className='font-light'>By: {post.user.name}</span>
+								<span className='italic font-light'>
+									{formatDate(post.createdAt)}
+								</span>
 							</div>
 						</article>
 					</Link>

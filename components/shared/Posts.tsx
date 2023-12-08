@@ -1,11 +1,11 @@
 'use client'
 
-import { blogData } from '@/constants/blogData'
-import { useState } from 'react'
+import { postTypes } from '@/types/postTypes'
+import { FC, useState } from 'react'
 import Button from '../ui/Button'
 import BlogCard from './BlogCard'
 
-const Posts = () => {
+const Posts: FC<{ posts: postTypes[] }> = ({ posts }) => {
 	const [visibleBlogs, setVisibleBlogs] = useState(5)
 	const showMoreBlogs = () => {
 		setVisibleBlogs(prevVisibleBlogs => prevVisibleBlogs + 3)
@@ -23,10 +23,10 @@ const Posts = () => {
 			</div>
 
 			<div className='flex flex-col gap-10 h-full'>
-				{blogData.slice(0, visibleBlogs).map((post, id) => (
+				{posts.slice(0, visibleBlogs).map((post, id) => (
 					<BlogCard post={post} key={id} />
 				))}
-				{visibleBlogs < blogData.length && (
+				{visibleBlogs < posts.length && (
 					<div className='flex justify-center'>
 						<Button
 							onClick={showMoreBlogs}

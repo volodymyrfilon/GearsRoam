@@ -1,13 +1,15 @@
-import { blogData } from '@/constants/blogData'
+import { postTypes } from '@/types/postTypes'
+import { formatDate } from '@/utils/formatDate'
+import Image from 'next/image'
 import Link from 'next/link'
+import { FC } from 'react'
 import Overlay from '../ui/Overlay'
 import Tag from '../ui/Tag'
 
-const Hero = () => {
-	const featuredPost = blogData.filter(blog => blog.featured === true)
+const Hero: FC<{ posts: postTypes[] }> = ({ posts }) => {
+	const featuredPost = posts.filter(post => post.featured === true)
 
 	const topFeatured = featuredPost.slice(0, 1)
-
 	const bottomFeatured = featuredPost.slice(1, 4)
 
 	return (
@@ -18,24 +20,27 @@ const Hero = () => {
 						key={id}
 						className='flex flex-col gap-5 mb-5 text-center relative'
 					>
-						<Tag text={post.tags} />
+						<Tag text={post.category} />
 						<h2 className='text-6xl uppercase text-tertiary font-extrabold'>
 							{post.title}
 						</h2>
 						<div className='items-center flex text-tertiary gap-3 justify-center font-light'>
-							<div className='w-10 h-10 rounded-full bg-black'></div>
-							<span>{post.authorName}</span>
-							<span className='italic'>{post.publishDate}</span>
+							{post.user.image && (
+								<Image
+									src={post.user.image}
+									height={50}
+									width={50}
+									alt={`Image of ${post.user.name}`}
+									className='rounded-full drop-shadow-lg'
+								/>
+							)}
+							<span>{post.user.name}</span>
+							<span className='italic'>{formatDate(post.createdAt)}</span>
 						</div>
-						<Link
-							href={{
-								pathname: `blog/${post.id}`,
-								query: { ...post },
-							}}
-						>
+						<Link href={`/blog/${post.id}`}>
 							<div className='relative max-h-[600px] overflow-hidden shadow-xl'>
 								<img
-									src={post.image_path}
+									src={post.img}
 									alt={`image for${post.title}`}
 									className='object-cover w-full h-full'
 								/>
@@ -48,27 +53,23 @@ const Hero = () => {
 				<div className='grid grid-cols-3 gap-8 max-lg:grid-cols-1'>
 					{bottomFeatured.map((post, id) => (
 						<article className='flex flex-col gap-3 items-center text-center relative'>
-							<Link
-								className='w-full'
-								href={{
-									pathname: `blog/${post.id}`,
-									query: { ...post },
-								}}
-							>
+							<Link className='w-full' href={`/blog/${post.id}`}>
 								<div className='relative overflow-hidden h-72 shadow-xl w-full'>
 									<img
-										src={post.image_path}
+										src={post.img}
 										alt={`image for${post.title}`}
 										className='object-cover w-full h-full'
 									/>
 									<Overlay />
 								</div>
 							</Link>
-							<Tag text={post.tags} />
+							<Tag text={post.category} />
 							<h3 className='text-sm font-extrabold uppercase text-tertiary px-5'>
 								{post.title}
 							</h3>
-							<span className='font-light italic'>{post.publishDate}</span>
+							<span className='font-light italic'>
+								{formatDate(post.createdAt)}
+							</span>
 						</article>
 					))}
 				</div>
