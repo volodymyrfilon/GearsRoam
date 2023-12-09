@@ -24,12 +24,14 @@ const TopPost: FC<{ posts: postTypes[] }> = ({ posts }) => {
 					<Link href={`/blog/${post.id}`}>
 						<article key={id}>
 							<div className='relative cursor-pointer'>
-								<Image
-									src={post.img}
-									alt={`image for${post.title}`}
-									width={800}
-									height={800}
-								/>
+								{post.img && (
+									<Image
+										src={post.img}
+										alt={`image for${post.title}`}
+										width={800}
+										height={800}
+									/>
+								)}
 								<Overlay />
 							</div>
 							<div className='w-full flex justify-center'>
@@ -41,7 +43,7 @@ const TopPost: FC<{ posts: postTypes[] }> = ({ posts }) => {
 							<div className='flex gap-3 justify-center mt-2'>
 								<span className='font-light'>By: {post.user.name}</span>
 								<span className='italic font-light'>
-									{formatDate(post.createdAt)}
+									{formatDate(post.createdAt.toString())}
 								</span>
 							</div>
 						</article>

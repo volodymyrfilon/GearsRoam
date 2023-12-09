@@ -1,7 +1,10 @@
 import { navLinks } from '@/constants'
 import useMenuActive from '@/hooks/useMenuActive'
+import { User } from '@prisma/client'
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { FC, useState } from 'react'
 import { CgClose, CgMenuGridO } from 'react-icons/cg'
 import { FaFacebookSquare } from 'react-icons/fa'
 import {
@@ -12,9 +15,13 @@ import {
 import Button from '../ui/Button'
 import Route from '../ui/Route'
 
-const MobileMenu = () => {
-	const [openMobileMenu, setOpenMobileMenu] = useState(false)
+interface MobileMenuProps {
+	user: User
+}
 
+const MobileMenu: FC<MobileMenuProps> = ({ user }) => {
+	const [openMobileMenu, setOpenMobileMenu] = useState(false)
+	const router = useRouter()
 	const mobileMenuHandler = () => {
 		setOpenMobileMenu(!openMobileMenu)
 	}
@@ -33,7 +40,7 @@ const MobileMenu = () => {
 						onClick={e => e.stopPropagation()}
 						className='absolute h-screen left-0 top-0 w-60 bg-white z-[999] px-5 border-r overflow-y-hidden flex flex-col gap-10'
 					>
-						<div className='border-b py-5'>
+						<div className='border-b py-5 text-center'>
 							<Link href={'/'}>
 								<h1 className='text-3xl font-extrabold text-secondary'>
 									Gears
@@ -48,7 +55,7 @@ const MobileMenu = () => {
 							</div>
 						</div>
 
-						<ul className='flex items-center justify-center gap-10 flex-col mt-5 flex-1 py-5 border-b'>
+						<ul className='flex items-center justify-center gap-5 flex-col mt-5 py-10 border-b'>
 							{navLinks.map((link, index) => {
 								const isActive = useMenuActive(link.route)
 
@@ -65,14 +72,37 @@ const MobileMenu = () => {
 							})}
 						</ul>
 
-						<div className='flex gap-5 flex-1 flex-col py-5'>
-							<Button text='Log In' onClick={() => null} aria='Log in button' />
-							<Button
-								text='Sign up'
-								onClick={() => null}
-								aria='Sign up button'
-							/>
-						</div>
+						{!user && (
+							<div className='flex gap-5 flex-1 flex-col py-5'>
+								<Button
+									text='Log In'
+									onClick={() => router.push('/access')}
+									aria='Log in button'
+								/>
+								<Button
+									text='Sign up'
+									onClick={() => router.push('/access')}
+									aria='Sign up button'
+								/>
+							</div>
+						)}
+
+						{user && (
+							<div>
+								<ul className='flex flex-col gap-5 items-center'>
+									<Link href='/create' onClick={() => setOpenMobileMenu(false)}>
+										<li>Create a post</li>
+									</Link>
+									<Link
+										href='/userposts'
+										onClick={() => setOpenMobileMenu(false)}
+									>
+										<li>My posts</li>
+									</Link>
+									<li onClick={() => signOut()}>Sign out</li>
+								</ul>
+							</div>
+						)}
 					</div>
 				</div>
 			) : null}

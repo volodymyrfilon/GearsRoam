@@ -11,8 +11,8 @@ const page = async () => {
 	return (
 		<div>
 			<div className='grid mx-auto lg:grid-cols-3 lg:gap-10 grid-cols-1 w-[95%] max-w-[1450px] overflow-y-hidden h-fit max-lg:space-y-7 mt-10'>
-				<Posts posts={posts as any} />
-				<TopPost posts={posts as any} />
+				<Posts posts={posts} />
+				<TopPost posts={posts} />
 			</div>
 		</div>
 	)

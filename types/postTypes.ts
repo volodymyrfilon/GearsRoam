@@ -3,14 +3,11 @@ import { User } from '@prisma/client'
 export interface postTypes {
 	id: string
 	title: string
-	img: string
+	img: string | null
 	desc: string
 	featured: boolean
 	topPost: boolean
 	category: string
-	authorImage: string
-	authorName: string
-	publishDate: string
-	createdAt: string
+	createdAt: string | Date
 	user: User
 }
