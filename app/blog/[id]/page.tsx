@@ -1,4 +1,6 @@
 import Tag from '@/components/ui/Tag'
+import { postTypes } from '@/types/postTypes'
+import { formatDate } from '@/utils/formatDate'
 import Image from 'next/image'
 import {
 	AiOutlineFacebook,
@@ -6,33 +8,33 @@ import {
 	AiOutlineTwitter,
 } from 'react-icons/ai'
 
-interface searchParamsTypes {
-	id: string
-	title: string
-	image_path: string
-	paragraph: string
-	featured: boolean
-	topPost: boolean
-	tags: string[]
-	authorImage: string
-	authorName: string
-	publishDate: string
+const getData = async (id: string) => {
+	const res = await fetch(`http://localhost:3000/api/post/${id}`, {
+		cache: 'no-store',
+	})
+
+	if (!res.ok) {
+		throw new Error('Failed')
+	}
+
+	return res.json()
 }
 
-const page = ({ searchParams }: { searchParams: searchParamsTypes }) => {
-	const post = searchParams
+const page = async ({ params }: { params: postTypes }) => {
+	const { id } = params
+	const post = await getData(id)
 	return (
 		<div className='w-[95%] mx-auto max-w-[1450px]'>
 			<div className='w-full h-[400px] relative mb-5'>
 				<Image
 					fill
 					alt='image for blog'
-					src={post.image_path}
+					src={post.img}
 					className='object-cover'
 				/>
 			</div>
 
-			<Tag text={post.tags} />
+			<Tag text={post.category} />
 			<h2 className='text-4xl font-extrabold text-tertiary uppercase my-3'>
 				{post.title}
 			</h2>
@@ -49,27 +51,19 @@ const page = ({ searchParams }: { searchParams: searchParamsTypes }) => {
 				</aside>
 
 				<article>
-					<p className='text-xl'>
-						{post.paragraph}
-						{post.paragraph}
-						{post.paragraph}
-						{post.paragraph}
-						{post.paragraph}
-						{post.paragraph}
-						{post.paragraph}
-					</p>
+					<p className='text-xl'>{post.desc}</p>
 
 					<div className='flex mt-5 gap-5 items-center'>
 						<Image
-							src={post.authorImage}
+							src={post.user.image}
 							width={500}
 							height={500}
-							alt={`Image of ${post.authorName}`}
+							alt={`Image of ${post.user.name}`}
 							className='rounded-full w-20 h-20 object-cover'
 						/>
 						<div className='flex flex-col gap-1'>
-							<span>{post.authorName}</span>
-							<span>{post.publishDate}</span>
+							<span>{post.user.name}</span>
+							<span>{formatDate(post.createdAt)}</span>
 						</div>
 					</div>
 				</article>
