@@ -29,7 +29,7 @@ export default async function RootLayout({
 			<AuthContext>
 				<EdgeStoreProvider>
 					<body className={`${roboto.className} overflow-x-hidden bg-light`}>
-						<Navbar user={user} />
+						<Navbar user={user as any} />
 						{children}
 						<Footer />
 					</body>
