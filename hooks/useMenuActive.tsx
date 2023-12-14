@@ -1,7 +1,6 @@
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 const useMenuActive = (route: any) => {
-	const router = useRouter()
 	const pathname = usePathname()
 
 	const isActive =
